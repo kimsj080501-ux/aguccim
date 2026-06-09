@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>스마트 통계 카지노: 확률의 신 PRO</title>
+  <!-- Chart.js 그래프 라이브러리 로드 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { box-sizing: border-box; }
@@ -38,7 +39,7 @@
       flex-direction: column;
       gap: 15px;
     }
-    .auth-box h2 { margin: 0 text-align: center; color: #8c9eff; }
+    .auth-box h2 { margin: 0; text-align: center; color: #8c9eff; }
     input {
       height: 46px; padding: 0 14px; border: 1px solid #3d4966;
       background: #121620; color: #fff; border-radius: 12px; font-size: 15px; outline: none;
@@ -67,7 +68,7 @@
 
     /* 대시보드 레이아웃 */
     .dashboard-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;
     }
     .stat-box { background: #1a202c; border-radius: 14px; padding: 15px; text-align: center; border-top: 4px solid #42a5f5; }
     .stat-title { font-size: 12px; color: #a0aec0; margin-bottom: 5px; }
@@ -92,7 +93,10 @@
     
     /* 실시간 통계 보조 힌트 */
     .strategy-hint {
-      background: #2a4365; border-left: 5px solid #63b3ed; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 14px;
+      background: #1a243d; border-left: 5px solid #63b3ed; padding: 15px; border-radius: 10px; margin-top: 10px; font-size: 14px; line-height: 1.6;
+    }
+    .edu-note {
+      font-size: 12px; color: #90caf9; margin-top: 8px; border-top: 1px dashed #3d4966; padding-top: 6px;
     }
 
     /* 사이드바 패널 (랭킹 및 시각화) */
@@ -118,8 +122,9 @@
 
   <div class="container">
     <h1>🎲 확률의 신: 통계학 블랙잭 PRO</h1>
-    <div class="subtitle">실시간 데이터 수집 및 대수의 법칙을 시각화하는 지능형 카지노</div>
+    <div class="subtitle">실시간 데이터 수집 및 대수의 법칙을 시각화하는 지능형 수학 교육 애플리케이션</div>
 
+    <!-- 1. 인증 섹션 -->
     <section id="authSection">
       <div class="auth-box">
         <h2>로그인 / 회원가입</h2>
@@ -130,12 +135,14 @@
       </div>
     </section>
 
+    <!-- 2. 메인 게임 및 통계 대시보드 -->
     <section id="mainSection" class="hidden">
       <div class="top-bar">
         <div class="user-info">👤 접속 계정: <strong id="userEmail"></strong></div>
         <button class="logout-btn" id="logoutBtn">로그아웃</button>
       </div>
 
+      <!-- 상단 핵심 메트릭스 데이터 대시보드 (수학 통계 위젯 보강) -->
       <div class="dashboard-grid">
         <div class="stat-box" style="border-top-color: #ef5350;">
           <div class="stat-title">수학적 실시간 파산(Bust) 확률</div>
@@ -145,18 +152,18 @@
           <div class="stat-title">보유 자산 (보유 칩)</div>
           <div id="userChips" class="stat-value">0개</div>
         </div>
-        <div class="stat-box" style="border-top-color: #66bb6a;">
-          <div class="stat-title">내 실시간 승률 (전체 판수)</div>
-          <div id="userWinRate" class="stat-value">0.0% (0판)</div>
+        <div class="stat-box" style="border-top-color: #9c27b0;">
+          <div class="stat-title">하이-로우 카운팅 수치 (True Count)</div>
+          <div id="cardCounting" class="stat-value">0.0</div>
         </div>
-        <div class="stat-box" style="border-top-color: #00bcd4;">
-          <div class="stat-title">덱 잔여 상태 (총 52장)</div>
-          <div id="remainingCards" class="stat-value">52장</div>
+        <div class="stat-box" style="border-top-color: #66bb6a;">
+          <div class="stat-title">내 승률 (전체 판수)</div>
+          <div id="userWinRate" class="stat-value">0.0% (0판)</div>
         </div>
       </div>
 
       <div class="main-grid">
-        
+        <!-- 왼쪽: 블랙잭 게임 실행 공간 -->
         <div class="game-board">
           <div class="play-area">
             <div class="area-title">🤖 AI 딜러 (Condition: 17점 미만 무조건 Hit)</div>
@@ -165,12 +172,14 @@
           </div>
 
           <div class="play-area">
-            <div class="area-title">👤 플레이어 (나)</div>
+            <div class="area-title">👤 플레이어 (나) <span style="color:#8c9eff; font-size:12px;">[판당 배팅: 400 칩]</span></div>
             <div id="playerCards" class="card-display"></div>
             <div id="playerScore" class="score">점수: 0</div>
             
+            <!-- 교육적 가치 강화: 통계학적 기댓값 근거 해설 박스 -->
             <div id="strategyHintBox" class="strategy-hint">
-              📊 <strong>수학적 전략 추천:</strong> 카드를 분배받으면 실시간 기댓값 연산 분석 알고리즘이 가동됩니다.
+              📊 <strong>확률적 기대 가치($EV$) 분석 시스템</strong>
+              <div class="edu-note">카드가 분배되면 이곳에 조건부 확률 기반 수학적 의사결정 해설서가 실시간 출력됩니다.</div>
             </div>
           </div>
 
@@ -186,6 +195,7 @@
           </div>
         </div>
 
+        <!-- 오른쪽: 차트 및 글로벌 리더보드 -->
         <div class="side-panel">
           <div class="panel-box">
             <div class="panel-title">📈 대수의 법칙 시각화 (수렴 승률)</div>
@@ -201,7 +211,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </div>
@@ -211,26 +220,22 @@
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
     import { getDatabase, ref, set, update, get, onValue, off } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
-    // 💡 제공해주신 기존 리얼타임 데이터베이스 및 구성 정보 완벽 맵핑
     const firebaseConfig = {
-      apiKey: "AIzaSyDPMTgTSfIzCFdxR03ujIui9GP-Hn0Jkjw",
-      authDomain: "project-7891559859606998128.firebaseapp.com",
-      databaseURL: "https://project-7891559859606998128-default-rtdb.firebaseio.com",
-      projectId: "project-7891559859606998128",
-      storageBucket: "project-7891559859606998128.firebasestorage.app",
-      messagingSenderId: "1012659494961",
-      appId: "1:1012659494961:web:8265f8f6526a9c01673510",
-      measurementId: "G-H0G9CYFJ52"
+      apiKey: 'AIzaSyDO-v52Ehwphh5gW0WBzu9_DliMhOzy4Yo',
+      authDomain: 'kang-f4e85.firebaseapp.com',
+      databaseURL: 'https://kang-f4e85-default-rtdb.firebaseio.com',
+      projectId: 'kang-f4e85',
+      storageBucket: 'kang-f4e85.firebasestorage.app',
+      messagingSenderId: '107057126084',
+      appId: '1:107057126084:web:30f7bcb3f25dd2aa4a0791',
+      measurementId: 'G-DJ52YTYQZM'
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const database = getDatabase(app);
-
-    // 구글 앱스 스크립트 텍스트 생성 전용 엔드포인트 연동
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDNMIktE288seW2Mr5YgksYFeAP3SNl8YyQZFa1DuvD0N_8pjRLDmxkZBYyQ4WGPmt/exec';
 
-    // DOM 선택자 모음
     const authSection = document.getElementById('authSection');
     const mainSection = document.getElementById('mainSection');
     const emailInput = document.getElementById('emailInput');
@@ -241,25 +246,24 @@
     const userEmail = document.getElementById('userEmail');
 
     let currentUser = null;
-    let userData = { chips: 1000, totalGames: 0, wins: 0, history: [] };
+    let userData = { chips: 2000, totalGames: 0, wins: 0, history: [] }; // 초기 칩 상향 제공
     let winRateChartInstance = null;
 
-    // 블랙잭 인게임 데이터 구조 변수
     let deck = [];
     let playerHand = [];
     let dealerHand = [];
     let gameOver = true;
-    const BET_CHIPS = 100; // 한 판당 고정 소모 베팅 칩 수
+    
+    // 💰 요청 사항 1: 배팅액을 400칩으로 대폭 상향 조정!
+    const BET_CHIPS = 400; 
 
-    // ==========================================
-    // 🔐 AUTHENTICATION & USER DATA FLOW
-    // ==========================================
+    // 카운팅 계산용 변수 (교육용 시스템)
+    let runningCount = 0;
 
     function getAuthCredentials() {
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
       if (!email || !password) { alert('이메일과 비밀번호를 모두 채워주세요.'); return null; }
-      if (password.length < 6) { alert('비밀번호는 안전을 위해 6자리 이상이어야 합니다.'); return null; }
       return { email, password };
     }
 
@@ -267,11 +271,10 @@
       const creds = getAuthCredentials(); if (!creds) return;
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, creds.email, creds.password);
-        // 신규 가입 유저 기본 데이터베이스 스키마 적재 (초기자산 1000칩 부여)
         await set(ref(database, `users/${userCredential.user.uid}/profile`), {
-          email: creds.email, chips: 1000, totalGames: 0, wins: 0
+          email: creds.email, chips: 2000, totalGames: 0, wins: 0
         });
-        alert('통계 카지노에 등록되었습니다! 로그인을 진행하세요.');
+        alert('회원가입이 완료되었습니다!');
       } catch (err) { alert(getKoreanErrorMessage(err.code)); }
     });
 
@@ -289,8 +292,6 @@
         userEmail.textContent = user.email;
         authSection.classList.add('hidden');
         mainSection.classList.remove('hidden');
-        
-        // 유저 고유 데이터 실시간 수집 및 글로벌 리더보드 리스너 기동
         initUserDataListener(user.uid);
         initGlobalLeaderboard();
         initChart();
@@ -302,49 +303,37 @@
       }
     });
 
-    // 데이터 싱크 리스너
     function initUserDataListener(uid) {
       const profileRef = ref(database, `users/${uid}/profile`);
       onValue(profileRef, (snapshot) => {
         const val = snapshot.val();
         if (val) {
-          userData.chips = val.chips ?? 1000;
+          userData.chips = val.chips ?? 2000;
           userData.totalGames = val.totalGames ?? 0;
           userData.wins = val.wins ?? 0;
           userData.history = val.history ? Object.values(val.history) : [];
           
-          // UI 통계 정보 반영
           document.getElementById('userChips').textContent = userData.chips.toLocaleString() + "개";
           const wr = userData.totalGames > 0 ? ((userData.wins / userData.totalGames) * 100).toFixed(1) : "0.0";
           document.getElementById('userWinRate').textContent = `${wr}% (${userData.totalGames}판)`;
-          
           updateChartData();
         }
       });
     }
 
-    // 발전 기능 ③: Firebase 전체 노드에서 칩 개수 기준 상위 5명 실시간 추출 리더보드
     function initGlobalLeaderboard() {
       const usersRef = ref(database, `users`);
       onValue(usersRef, (snapshot) => {
         const allData = snapshot.val();
         if (!allData) return;
-        
         let rankArray = [];
         Object.keys(allData).forEach(uid => {
           if (allData[uid].profile) {
-            rankArray.push({
-              uid: uid,
-              email: allData[uid].profile.email,
-              chips: allData[uid].profile.chips || 0
-            });
+            rankArray.push({ uid: uid, email: allData[uid].profile.email, chips: allData[uid].profile.chips || 0 });
           }
         });
-
-        // 칩 수량 기준 내림차순 정렬
         rankArray.sort((a, b) => b.chips - a.chips);
         const top5 = rankArray.slice(0, 5);
-
         const listDiv = document.getElementById('leaderboard');
         listDiv.innerHTML = '';
         top5.forEach((player, index) => {
@@ -360,19 +349,15 @@
       });
     }
 
-    // ==========================================
-    // 📈 발전 기능 ①: CHART.JS 대수의 법칙 시각화 구현
-    // ==========================================
     function initChart() {
       const ctx = document.getElementById('winRateChart').getContext('2d');
       if (winRateChartInstance) winRateChartInstance.destroy();
-      
       winRateChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
           labels: [],
           datasets: [{
-            label: '누적 실시간 승률 (%)',
+            label: '누적 승률 수렴도 (%)',
             data: [],
             borderColor: '#ff4081',
             backgroundColor: 'rgba(255, 64, 129, 0.1)',
@@ -386,8 +371,8 @@
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            x: { grid: { display: false }, ticks: { color: '#888', font: { size: 9 } } },
-            y: { min: 0, max: 100, ticks: { color: '#888', stepSize: 20 } }
+            x: { ticks: { color: '#888', font: { size: 9 } } },
+            y: { min: 0, max: 100, ticks: { color: '#888', stepSize: 25 } }
           }
         }
       });
@@ -395,35 +380,29 @@
 
     function updateChartData() {
       if (!winRateChartInstance) return;
-      
-      // 누적 변동 데이터 추적 파싱
       let runningWins = 0;
       const rates = userData.history.map((game, index) => {
         if (game.result === '승리') runningWins++;
         return ((runningWins / (index + 1)) * 100).toFixed(1);
       });
-      
-      const labels = userData.history.map((_, i) => `${i + 1}회차`);
-
-      winRateChartInstance.data.labels = labels;
+      winRateChartInstance.data.labels = userData.history.map((_, i) => `${i + 1}회`);
       winRateChartInstance.data.datasets[0].data = rates;
       winRateChartInstance.update();
     }
 
-
     // ==========================================
-    // 🎲 BLACKJACK CORE GAME LOGIC + 발전기능 ②
+    // 🎲 인게임 통계 연산 및 핵심 알고리즘 부문
     // ==========================================
 
     window.initGame = function() {
       if (!currentUser) return;
       if (userData.chips < BET_CHIPS) {
-        alert("보유 칩이 부족하여 충전(시스템 보조 자산 리셋) 처리합니다.");
-        update(ref(database, `users/${currentUser.uid}/profile`), { chips: 1000 });
+        alert("자산이 부족하여 교육 지원용 2,000칩을 리필합니다!");
+        update(ref(database, `users/${currentUser.uid}/profile`), { chips: 2000 });
         return;
       }
 
-      // 게임 시작 시 선 배팅 차감 비용 설정
+      // 선 배팅 400칩 차감 후 파이어베이스 즉시 갱신
       update(ref(database, `users/${currentUser.uid}/profile`), { chips: userData.chips - BET_CHIPS });
 
       deck = []; playerHand = []; dealerHand = []; gameOver = false;
@@ -453,12 +432,30 @@
       return score;
     }
 
-    // 조건부 확률 분기 및 최적 수학 힌트 엔진
+    // 🎓 교육적 가치 강화: 실시간 조건부 확률 및 카드 카운팅 연산 장치
     function calculateStatistics() {
       const currentScore = calculateScore(playerHand);
       const neededMax = 21 - currentScore;
 
-      // 1. 파산 확률 계산
+      // 1. 하이-로우 카드 카운팅 수치 실시간 계산 (공개된 카드 기반)
+      // 하이 카드(10, J, Q, K, A) = -1, 로우 카드(2, 3, 4, 5, 6) = +1, 미들(7, 8, 9) = 0
+      let countedValue = 0;
+      const allVisibleCards = [...playerHand, dealerHand[0]]; // 플레이어 카드 전체 + 딜러의 오픈카드 1장
+      allVisibleCards.forEach(card => {
+        if (['10', 'J', 'Q', 'K', 'A'].includes(card.val)) countedValue -= 1;
+        else if (['2', '3', '4', '5', '6'].includes(card.val)) countedValue += 1;
+      });
+      
+      // 잔여 덱(남은 덱 비율) 기준 True Count 연산 (통계학적 가중치 도출)
+      const remainingDecks = deck.length / 52;
+      const trueCount = remainingDecks > 0 ? (countedValue / remainingDecks).toFixed(1) : 0;
+      
+      const countElement = document.getElementById('cardCounting');
+      countElement.textContent = trueCount;
+      // 카운팅 수치에 따른 배경색 직관화 (수학적 유불리 시각화)
+      countElement.style.color = trueCount > 0 ? "#4caf50" : (trueCount < 0 ? "#f44336" : "#42a5f5");
+
+      // 2. 실시간 파산(Bust) 확률 연산
       let bustProbability = 0;
       if (neededMax < 11) {
         let bustCards = 0;
@@ -469,24 +466,29 @@
         bustProbability = (bustCards / deck.length) * 100;
       }
       document.getElementById('bustProbability').textContent = bustProbability.toFixed(2) + "%";
-      document.getElementById('remainingCards').textContent = deck.length + "장";
 
-      // 2. 발전 기능 ②: 수학적 베이직 스트레티지 기댓값 계산 알고리즘 엔진 조립
+      // 3. 🎓 교육 목적의 수학적 베이직 스트레티지 기댓값 해설 엔진
       const hintBox = document.getElementById('strategyHintBox');
       const dealerOpenVal = ['J','Q','K'].includes(dealerHand[0].val) ? 10 : (dealerHand[0].val === 'A' ? 11 : parseInt(dealerHand[0].val));
 
+      let interpretation = "";
       if (currentScore >= 17) {
-        hintBox.innerHTML = `📊 <strong>수학적 최적 전략:</strong> <span style="color:#ff9800;">[STAND 추천]</span> 현재 점수(${currentScore})는 높습니다. 추가 드로우는 파산 확률(${bustProbability.toFixed(1)}%)이 너무 높은 무모한 행위입니다.`;
+        interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 현재 귀하의 스코어는 ${currentScore}점이며 다음 드로우 시 <strong>파산 확률이 ${bustProbability.toFixed(1)}%</strong>에 달합니다. 통계학적으로 히트를 선택할 때의 기댓값($EV$)이 극도로 낮으므로 멈추는 것이 수학적 정해입니다.`;
       } else if (currentScore <= 11) {
-        hintBox.innerHTML = `📊 <strong>수학적 최적 전략:</strong> <span style="color:#4caf50;">[HIT 강력 추천]</span> 수학적으로 현재 상태에서는 어떠한 카드를 받아도 파산(Bust) 확률이 0.00% 이므로 절대적으로 이득인 구간입니다.`;
+        interpretation = `💡 <strong>[Hit 강력 권장] 수학적 근거:</strong> 덱에 존재하는 어떤 카드를 추가 수령하더라도 <strong>파산 확률이 0.00%</strong>입니다. 기대 점수 상승 곡선이 리스크를 완벽히 압도하므로 무조건 카드를 받아야 하는 기댓값($EV > 0$) 양수 구간입니다.`;
       } else {
-        // 12~16 구간 사이 조건부 하우스 기댓값 전략 매핑
+        // 12~16 하우스 엣지 브레이킹 구간 해설
         if (dealerOpenVal >= 7) {
-          hintBox.innerHTML = `📊 <strong>수학적 최적 전략:</strong> <span style="color:#4caf50;">[HIT 추천]</span> 딜러의 오픈 카드 점수(${dealerOpenVal})가 높아 하우스의 기대 최종 스코어가 우세하므로, 파산 위험을 감수하더라도 스코어 업을 노려야 합니다.`;
+          interpretation = `💡 <strong>[Hit 권장] 수학적 근거:</strong> 현재 딜러의 오픈 카드가 고득점(${dealerOpenVal}점)입니다. 이 경우 딜러가 최종 17~21점을 완성할 수학적 확률이 매우 높기 때문에, 플레이어는 위험(${bustProbability.toFixed(1)}% 파산율)을 감수하고서라도 기댓값을 올리기 위해 카드를 더 받아야 합리적입니다.`;
         } else {
-          hintBox.innerHTML = `📊 <strong>수학적 최적 전략:</strong> <span style="color:#ff9800;">[STAND 추천]</span> 딜러의 오픈 카드(${dealerOpenVal}) 상황이 불리하므로 카드를 무리하게 받아 자멸하기보다는, 대기하여 딜러의 버스트 확률을 이용하는 편이 기댓값이 더 높습니다.`;
+          interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 딜러의 오픈 카드가 ${dealerOpenVal}점으로 매우 취약합니다. 블랙잭 규칙상 딜러는 17점 미만일 때 무조건 카드를 더 받아야 하므로, 현재 딜러가 자멸(Bust)할 통계적 확률이 대단히 높습니다. 무리하게 카드를 받기보다 대기하는 편이 기댓값 측면에서 우세합니다.`;
         }
       }
+
+      // 카드 카운팅 교육 가이드 결합
+      const countingGuide = `<div class="edu-note">📊 <strong>수학 카운팅 보충수업:</strong> 현재 True Count는 <strong>${trueCount}</strong>입니다. ${trueCount > 0 ? '남은 덱에 10점 짜리 대형 카드의 비중이 상대적으로 높은 상태이므로 플레이어 및 딜러 버스트 확률이 동시에 상승합니다.' : '남은 덱에 낮은 숫자의 비중이 높은 상태입니다.'}</div>`;
+      
+      hintBox.innerHTML = interpretation + countingGuide;
     }
 
     function updateUI(showAllDealerCards) {
@@ -519,7 +521,6 @@
     window.stand = function() {
       if (gameOver) return;
       gameOver = true;
-      
       let dScore = calculateScore(dealerHand);
       while (dScore < 17) {
         dealerHand.push(deck.pop());
@@ -539,42 +540,35 @@
       }
     };
 
-    // 데이터 영속성 트랜잭션 기록 함수
     async function endGame(result, defaultComment) {
       gameOver = true;
       document.getElementById('btnHit').disabled = true;
       document.getElementById('btnStand').disabled = true;
 
-      // 정산 칩 계산 구조 책정
+      // 💰 정산 칩 계산 구조 책정 (판당 400칩 규모에 맞게 정산)
       let prize = 0;
-      if (result === '승리') prize = BET_CHIPS * 2;
+      if (result === '승리') prize = BET_CHIPS * 2; // 승리 시 투자금 포함 총 800칩 획득
       else if (result === '무승부') prize = BET_CHIPS;
 
       const newChips = userData.chips + prize;
       const newTotal = userData.totalGames + 1;
       const newWins = userData.wins + (result === '승리' ? 1 : 0);
       
-      // 유저별 게임 이력 세부 스냅샷 수집
       const historyLogRef = ref(database, `users/${currentUser.uid}/profile/history/${Date.now()}`);
       await set(historyLogRef, { result: result, time: new Date().toLocaleString('ko-KR') });
 
-      // 유저 통계 정보 일괄 비동기 업데이트
       await update(ref(database, `users/${currentUser.uid}/profile`), {
         chips: newChips, totalGames: newTotal, wins: newWins
       });
 
-      // AI 에이전트 딜러 컨셉 주입 프롬프트 전송
       const pScore = calculateScore(playerHand);
       const dScore = calculateScore(dealerHand);
-      const bustProb = document.getElementById('bustProbability').textContent;
-      const prompt = `블랙잭 결과: ${result}. 플레이어 점수: ${pScore}점, 딜러 점수: ${dScore}점, 마지막 액션 시 플레이어 버스트 확률은 ${bustProb}였습니다. 오만하고 이성적인 통계학자 딜러 컨셉으로 비아냥거리거나 칭찬하는 한국어 총평 한 문장만 작성해주세요.`;
+      const prompt = `블랙잭 결과: ${result}. 플레이어 점수: ${pScore}점, 딜러 점수: ${dScore}점. 오만하고 이성적인 통계학자 딜러 컨셉으로 수학적 선택을 평가하는 냉소적인 한국어 총평 한 문장만 작성해주세요.`;
 
       try {
         document.getElementById('ttsStatus').textContent = "🤖 AI 데이터 분석 중...";
         const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ question: prompt }) });
         const data = await res.json();
-        if (data.error) throw new Error(data.error);
-        
         document.getElementById('dealerSpeechText').textContent = data.answer;
         speak(data.answer);
       } catch (err) {
@@ -595,10 +589,8 @@
     function getKoreanErrorMessage(code) {
       switch (code) {
         case 'auth/email-already-in-use': return '이미 등록된 이메일 계정입니다.';
-        case 'auth/invalid-email': return '이메일 주소 포맷이 형식에 맞지 않습니다.';
-        case 'auth/weak-password': return '비밀번호 강도가 약합니다. 6자리 이상 설정하세요.';
-        case 'auth/invalid-credential': return '계정 정보 또는 암호 체계가 일치하지 않습니다.';
-        default: return `인증 실패 시스템 예외: ${code}`;
+        case 'auth/weak-password': return '비밀번호는 6자리 이상이어야 합니다.';
+        default: return `인증 시스템 에러: ${code}`;
       }
     }
   </script>
