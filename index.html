@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>스마트 통계 카지노: 확률의 신 PRO</title>
-  <!-- Chart.js 그래프 라이브러리 로드 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { box-sizing: border-box; }
@@ -124,7 +123,6 @@
     <h1>🎲 확률의 신: 통계학 블랙잭 PRO</h1>
     <div class="subtitle">실시간 데이터 수집 및 대수의 법칙을 시각화하는 지능형 수학 교육 애플리케이션</div>
 
-    <!-- 1. 인증 섹션 -->
     <section id="authSection">
       <div class="auth-box">
         <h2>로그인 / 회원가입</h2>
@@ -135,14 +133,12 @@
       </div>
     </section>
 
-    <!-- 2. 메인 게임 및 통계 대시보드 -->
     <section id="mainSection" class="hidden">
       <div class="top-bar">
         <div class="user-info">👤 접속 계정: <strong id="userEmail"></strong></div>
         <button class="logout-btn" id="logoutBtn">로그아웃</button>
       </div>
 
-      <!-- 상단 핵심 메트릭스 데이터 대시보드 (수학 통계 위젯 보강) -->
       <div class="dashboard-grid">
         <div class="stat-box" style="border-top-color: #ef5350;">
           <div class="stat-title">수학적 실시간 파산(Bust) 확률</div>
@@ -163,7 +159,6 @@
       </div>
 
       <div class="main-grid">
-        <!-- 왼쪽: 블랙잭 게임 실행 공간 -->
         <div class="game-board">
           <div class="play-area">
             <div class="area-title">🤖 AI 딜러 (Condition: 17점 미만 무조건 Hit)</div>
@@ -176,7 +171,6 @@
             <div id="playerCards" class="card-display"></div>
             <div id="playerScore" class="score">점수: 0</div>
             
-            <!-- 교육적 가치 강화: 통계학적 기댓값 근거 해설 박스 -->
             <div id="strategyHintBox" class="strategy-hint">
               📊 <strong>확률적 기대 가치($EV$) 분석 시스템</strong>
               <div class="edu-note">카드가 분배되면 이곳에 조건부 확률 기반 수학적 의사결정 해설서가 실시간 출력됩니다.</div>
@@ -195,7 +189,6 @@
           </div>
         </div>
 
-        <!-- 오른쪽: 차트 및 글로벌 리더보드 -->
         <div class="side-panel">
           <div class="panel-box">
             <div class="panel-title">📈 대수의 법칙 시각화 (수렴 승률)</div>
@@ -220,15 +213,16 @@
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
     import { getDatabase, ref, set, update, get, onValue, off } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
+    // 🔗 질문자님의 파이어베이스 주소록 연동 성공
     const firebaseConfig = {
-      apiKey: 'AIzaSyDO-v52Ehwphh5gW0WBzu9_DliMhOzy4Yo',
-      authDomain: 'kang-f4e85.firebaseapp.com',
-      databaseURL: 'https://kang-f4e85-default-rtdb.firebaseio.com',
-      projectId: 'kang-f4e85',
-      storageBucket: 'kang-f4e85.firebasestorage.app',
-      messagingSenderId: '107057126084',
-      appId: '1:107057126084:web:30f7bcb3f25dd2aa4a0791',
-      measurementId: 'G-DJ52YTYQZM'
+      apiKey: "AIzaSyDPMTgTSfIzCFdxR03ujIui9GP-Hn0Jkjw",
+      authDomain: "project-7891559859606998128.firebaseapp.com",
+      databaseURL: "https://project-7891559859606998128-default-rtdb.firebaseio.com",
+      projectId: "project-7891559859606998128",
+      storageBucket: "project-7891559859606998128.firebasestorage.app",
+      messagingSenderId: "1012659494961",
+      appId: "1:1012659494961:web:8265f8f6526a9c01673510",
+      measurementId: "G-H0G9CYFJ52"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -246,7 +240,7 @@
     const userEmail = document.getElementById('userEmail');
 
     let currentUser = null;
-    let userData = { chips: 2000, totalGames: 0, wins: 0, history: [] }; // 초기 칩 상향 제공
+    let userData = { chips: 2000, totalGames: 0, wins: 0, history: [] }; 
     let winRateChartInstance = null;
 
     let deck = [];
@@ -254,10 +248,8 @@
     let dealerHand = [];
     let gameOver = true;
     
-    // 💰 요청 사항 1: 배팅액을 400칩으로 대폭 상향 조정!
+    // 💰 판당 배팅액 기본 400 설정
     const BET_CHIPS = 400; 
-
-    // 카운팅 계산용 변수 (교육용 시스템)
     let runningCount = 0;
 
     function getAuthCredentials() {
@@ -317,6 +309,11 @@
           const wr = userData.totalGames > 0 ? ((userData.wins / userData.totalGames) * 100).toFixed(1) : "0.0";
           document.getElementById('userWinRate').textContent = `${wr}% (${userData.totalGames}판)`;
           updateChartData();
+        } else {
+          // 새로 구동했을 때 프로필 노드가 없으면 강제 초기화 노드 배포
+          set(ref(database, `users/${uid}/profile`), {
+            email: currentUser.email, chips: 2000, totalGames: 0, wins: 0
+          });
         }
       });
     }
@@ -390,19 +387,14 @@
       winRateChartInstance.update();
     }
 
-    // ==========================================
-    // 🎲 인게임 통계 연산 및 핵심 알고리즘 부문
-    // ==========================================
-
     window.initGame = function() {
       if (!currentUser) return;
       if (userData.chips < BET_CHIPS) {
-        alert("자산이 부족하여 교육 지원용 2,000칩을 리필합니다!");
+        alert("자산이 부족하여 교육 지원용 2,000칩을 무상 리필합니다!");
         update(ref(database, `users/${currentUser.uid}/profile`), { chips: 2000 });
         return;
       }
 
-      // 선 배팅 400칩 차감 후 파이어베이스 즉시 갱신
       update(ref(database, `users/${currentUser.uid}/profile`), { chips: userData.chips - BET_CHIPS });
 
       deck = []; playerHand = []; dealerHand = []; gameOver = false;
@@ -432,30 +424,24 @@
       return score;
     }
 
-    // 🎓 교육적 가치 강화: 실시간 조건부 확률 및 카드 카운팅 연산 장치
     function calculateStatistics() {
       const currentScore = calculateScore(playerHand);
       const neededMax = 21 - currentScore;
 
-      // 1. 하이-로우 카드 카운팅 수치 실시간 계산 (공개된 카드 기반)
-      // 하이 카드(10, J, Q, K, A) = -1, 로우 카드(2, 3, 4, 5, 6) = +1, 미들(7, 8, 9) = 0
       let countedValue = 0;
-      const allVisibleCards = [...playerHand, dealerHand[0]]; // 플레이어 카드 전체 + 딜러의 오픈카드 1장
+      const allVisibleCards = [...playerHand, dealerHand[0]];
       allVisibleCards.forEach(card => {
         if (['10', 'J', 'Q', 'K', 'A'].includes(card.val)) countedValue -= 1;
         else if (['2', '3', '4', '5', '6'].includes(card.val)) countedValue += 1;
       });
       
-      // 잔여 덱(남은 덱 비율) 기준 True Count 연산 (통계학적 가중치 도출)
       const remainingDecks = deck.length / 52;
       const trueCount = remainingDecks > 0 ? (countedValue / remainingDecks).toFixed(1) : 0;
       
       const countElement = document.getElementById('cardCounting');
       countElement.textContent = trueCount;
-      // 카운팅 수치에 따른 배경색 직관화 (수학적 유불리 시각화)
       countElement.style.color = trueCount > 0 ? "#4caf50" : (trueCount < 0 ? "#f44336" : "#42a5f5");
 
-      // 2. 실시간 파산(Bust) 확률 연산
       let bustProbability = 0;
       if (neededMax < 11) {
         let bustCards = 0;
@@ -467,27 +453,23 @@
       }
       document.getElementById('bustProbability').textContent = bustProbability.toFixed(2) + "%";
 
-      // 3. 🎓 교육 목적의 수학적 베이직 스트레티지 기댓값 해설 엔진
       const hintBox = document.getElementById('strategyHintBox');
       const dealerOpenVal = ['J','Q','K'].includes(dealerHand[0].val) ? 10 : (dealerHand[0].val === 'A' ? 11 : parseInt(dealerHand[0].val));
 
       let interpretation = "";
       if (currentScore >= 17) {
-        interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 현재 귀하의 스코어는 ${currentScore}점이며 다음 드로우 시 <strong>파산 확률이 ${bustProbability.toFixed(1)}%</strong>에 달합니다. 통계학적으로 히트를 선택할 때의 기댓값($EV$)이 극도로 낮으므로 멈추는 것이 수학적 정해입니다.`;
+        interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 현재 스코어는 ${currentScore}점이며 다음 드로우 시 <strong>파산 확률이 ${bustProbability.toFixed(1)}%</strong>에 달합니다. 통계학적으로 히트를 선택할 때의 기댓값($EV$)이 낮으므로 멈추는 것이 안전합니다.`;
       } else if (currentScore <= 11) {
-        interpretation = `💡 <strong>[Hit 강력 권장] 수학적 근거:</strong> 덱에 존재하는 어떤 카드를 추가 수령하더라도 <strong>파산 확률이 0.00%</strong>입니다. 기대 점수 상승 곡선이 리스크를 완벽히 압도하므로 무조건 카드를 받아야 하는 기댓값($EV > 0$) 양수 구간입니다.`;
+        interpretation = `💡 <strong>[Hit 강력 권장] 수학적 근거:</strong> 어떤 카드를 수령하더라도 <strong>파산 확률이 0.00%</strong>입니다. 기대 점수 상승 곡선이 리스크를 완벽히 압도하므로 기댓값($EV > 0$) 양수 구간입니다.`;
       } else {
-        // 12~16 하우스 엣지 브레이킹 구간 해설
         if (dealerOpenVal >= 7) {
-          interpretation = `💡 <strong>[Hit 권장] 수학적 근거:</strong> 현재 딜러의 오픈 카드가 고득점(${dealerOpenVal}점)입니다. 이 경우 딜러가 최종 17~21점을 완성할 수학적 확률이 매우 높기 때문에, 플레이어는 위험(${bustProbability.toFixed(1)}% 파산율)을 감수하고서라도 기댓값을 올리기 위해 카드를 더 받아야 합리적입니다.`;
+          interpretation = `💡 <strong>[Hit 권장] 수학적 근거:</strong> 딜러의 오픈 카드가 고득점(${dealerOpenVal}점)입니다. 딜러가 메이드할 확률이 높기 때문에 플레이어는 위험(${bustProbability.toFixed(1)}% 파산율)을 감수하고서라도 기댓값을 올리기 위해 Hit을 하는 편이 유리합니다.`;
         } else {
-          interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 딜러의 오픈 카드가 ${dealerOpenVal}점으로 매우 취약합니다. 블랙잭 규칙상 딜러는 17점 미만일 때 무조건 카드를 더 받아야 하므로, 현재 딜러가 자멸(Bust)할 통계적 확률이 대단히 높습니다. 무리하게 카드를 받기보다 대기하는 편이 기댓값 측면에서 우세합니다.`;
+          interpretation = `💡 <strong>[Stand 권장] 수학적 근거:</strong> 딜러의 오픈 카드가 ${dealerOpenVal}점으로 취약합니다. 딜러가 스스로 버스트될 확률이 대단히 높으므로 무리한 드로우보다 대기하는 편이 통계학적 기댓값이 우세합니다.`;
         }
       }
 
-      // 카드 카운팅 교육 가이드 결합
-      const countingGuide = `<div class="edu-note">📊 <strong>수학 카운팅 보충수업:</strong> 현재 True Count는 <strong>${trueCount}</strong>입니다. ${trueCount > 0 ? '남은 덱에 10점 짜리 대형 카드의 비중이 상대적으로 높은 상태이므로 플레이어 및 딜러 버스트 확률이 동시에 상승합니다.' : '남은 덱에 낮은 숫자의 비중이 높은 상태입니다.'}</div>`;
-      
+      const countingGuide = `<div class="edu-note">📊 <strong>수학 카운팅 보충수업:</strong> 현재 True Count는 <strong>${trueCount}</strong>입니다. ${trueCount > 0 ? '남은 덱에 10점 짜리 대형 카드의 비중이 상대적으로 높은 상태이므로 양측의 버스트 확률이 상승합니다.' : '남은 덱에 낮은 숫자의 비중이 높은 상태입니다.'}</div>`;
       hintBox.innerHTML = interpretation + countingGuide;
     }
 
@@ -514,7 +496,7 @@
       calculateStatistics();
 
       if (calculateScore(playerHand) > 21) {
-        endGame('패배', '수학적 리스크 관리에 실패하셨군요. 무모한 드로우의 대가는 버스트입니다.');
+        endGame('패배', '수학적 리스크 관리에 실패하셨군요. 버스트입니다.');
       }
     };
 
@@ -534,9 +516,9 @@
       } else if (pScore > dScore) {
         endGame('승리', `당신이 ${pScore}점으로 하우스를 꺾었습니다. 완벽한 수학적 판단이었습니다.`);
       } else if (pScore < dScore) {
-        endGame('패배', `딜러가 ${dScore}점으로 하우스 규칙의 승리를 선언합니다. 아쉽게 되었군요.`);
+        endGame('패배', `딜러가 ${dScore}점으로 승리했습니다. 아쉽게 되었군요.`);
       } else {
-        endGame('무승부', '수학적 균형이 맞았습니다. 완벽히 같은 점수로 비겼습니다.');
+        endGame('무승부', '수학적 균형이 맞았습니다. 비겼습니다.');
       }
     };
 
@@ -545,9 +527,8 @@
       document.getElementById('btnHit').disabled = true;
       document.getElementById('btnStand').disabled = true;
 
-      // 💰 정산 칩 계산 구조 책정 (판당 400칩 규모에 맞게 정산)
       let prize = 0;
-      if (result === '승리') prize = BET_CHIPS * 2; // 승리 시 투자금 포함 총 800칩 획득
+      if (result === '승리') prize = BET_CHIPS * 2; 
       else if (result === '무승부') prize = BET_CHIPS;
 
       const newChips = userData.chips + prize;
@@ -590,6 +571,7 @@
       switch (code) {
         case 'auth/email-already-in-use': return '이미 등록된 이메일 계정입니다.';
         case 'auth/weak-password': return '비밀번호는 6자리 이상이어야 합니다.';
+        case 'auth/invalid-credential': return '이메일 또는 비밀번호가 일치하지 않습니다.';
         default: return `인증 시스템 에러: ${code}`;
       }
     }
